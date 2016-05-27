@@ -30,6 +30,7 @@ from openid_provider import conf
 from openid_provider.utils import add_sreg_data, add_ax_data, get_store, \
     trust_root_validation, get_trust_session_key, prep_response
 from openid_provider.models import TrustedRoot
+from .models import OpenID
 
 logger = logging.getLogger(__name__)
 
@@ -255,8 +256,7 @@ def openid_get_identity(request, identity_url):
     try:
         return OpenID.objects.get(user=request.user)
     except OpenID.DoesNotExist:
-        openid = OpenID(user=request.user, openid=request.user.username)
-        openid.save()
+        openid, _ = OpenID.objects.get_or_create(user=request.user, openid=request.user.username)
         return openid
 
 
