@@ -252,7 +252,12 @@ def openid_get_identity(request, identity_url):
             return openids[0]
         if request.user.openid_set.count() > 0:
             return request.user.openid_set.all()[0]
-    return None
+    try:
+        return OpenID.objects.get(user=request.user)
+    except OpenID.DoesNotExist:
+        openid = OpenID(user=request.user, openid=request.user.username)
+        openid.save()
+        return openid
 
 
 def openid_get_server(request):
