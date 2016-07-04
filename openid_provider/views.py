@@ -207,7 +207,10 @@ def landing_page(request, orequest, login_url=None,
     but is not authenticated with the site. For idproxy.net, a message telling
     them to log in manually is displayed.
     """
-    request.session['OPENID_REQUEST'] = orequest.message.toPostArgs()
+    try:
+        request.session['OPENID_REQUEST'] = orequest.message.toPostArgs()
+    except AttributeError:
+        pass
     if not login_url:
         login_url = settings.LOGIN_URL
     path = request.get_full_path()
