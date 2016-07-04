@@ -147,8 +147,10 @@ def openid_decide(request):
 
     if not request.user.is_authenticated():
         return landing_page(request, orequest)
-
-    openid = openid_get_identity(request, orequest.identity)
+    try:
+        openid = openid_get_identity(request, orequest.identity)
+    except AttributeError:
+        openid = None
     if openid is None:
         return error_page(
             request, "You are signed in but you don't have OpenID here!")
