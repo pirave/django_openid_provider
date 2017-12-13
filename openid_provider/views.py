@@ -67,9 +67,8 @@ def openid_server(request):
                     reverse('openid-provider-xrds')),
             }
             logger.debug('invalid request, sending info: %s', data)
-            return render_to_response('openid_provider/server.html',
-                                      data,
-                                      context_instance=RequestContext(request))
+            return render(request, 'openid_provider/server.html',
+                                      data)
 
     if orequest.mode in BROWSER_REQUEST_MODES:
         if not request.user.is_authenticated():
@@ -126,13 +125,9 @@ def openid_xrds(request, identity=False, id=None):
         'types': types,
         'endpoints': endpoints }
     try:
-        return render_to_response(*args, 
-                                  context_instance=RequestContext(request), 
-                                  content_type=YADIS_CONTENT_TYPE)
+        return render(request, *args, content_type=YADIS_CONTENT_TYPE)
     except TypeError:  # Django<1.7 will raise TypeError due to 'content_type'
-        return render_to_response(*args,
-                                  context_instance=RequestContext(request), 
-                                  mimetype=YADIS_CONTENT_TYPE)
+        return render(request, *args, mimetype=YADIS_CONTENT_TYPE)
 
 def openid_decide(request):
     """
@@ -167,19 +162,19 @@ def openid_decide(request):
         logger.debug('orequest.answer(False)')
         return prep_response(request, orequest, oresponse)
 
-    return render_to_response('openid_provider/decide.html', {
+    return render(request, 'openid_provider/decide.html', {
         'title': _('Trust this site?'),
         'trust_root': orequest.trust_root,
         'trust_root_valid': trust_root_valid,
         'return_to': orequest.return_to,
         'identity': orequest.identity,
-    }, context_instance=RequestContext(request))
+    })
 
 def error_page(request, msg):
-    return render_to_response('openid_provider/error.html', {
+    return render(request, 'openid_provider/error.html', {
         'title': _('Error'),
         'msg': msg,
-    }, context_instance=RequestContext(request))
+    }
 
 class SafeQueryDict(QueryDict):
     """
