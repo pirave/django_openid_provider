@@ -174,7 +174,7 @@ def error_page(request, msg):
     return render(request, 'openid_provider/error.html', {
         'title': _('Error'),
         'msg': msg,
-    }
+    })
 
 class SafeQueryDict(QueryDict):
     """
