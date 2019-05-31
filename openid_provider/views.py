@@ -3,7 +3,7 @@
 # and from examples/djopenid from python-openid-2.2.4
 from future.moves.urllib.parse import urlparse
 import logging
-from urllib import urlencode, quote
+from future.moves.urllib.parse import urlencode, quote
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
