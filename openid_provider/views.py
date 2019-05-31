@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # some code from http://www.djangosnippets.org/snippets/310/ by simon
 # and from examples/djopenid from python-openid-2.2.4
-import urlparse
+from future.moves.urllib.parse import urlparse
 import logging
 from urllib import urlencode, quote
 
