@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim: set ts=4 sw=4 : */
 
-import .views
+from . import views
 try:
     from django.conf.urls import url
 except ImportError:  # Django < 1.4
