@@ -104,7 +104,7 @@ def trust_root_validation(orequest):
 
 def get_trust_session_key(orequest):
     return 'OPENID_' + sha1(
-        orequest.trust_root + orequest.return_to).hexdigest()
+        orequest.trust_root.encode('utf-8') + orequest.return_to.encode('utf-8')).hexdigest()
 
 def prep_response(request, orequest, oresponse, server=None):
     # Convert a webresponse from the OpenID library in to a Django HttpResponse
