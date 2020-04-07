@@ -10,7 +10,7 @@ from openid.yadis.discover import DiscoveryFailure
 from openid.fetchers import HTTPFetchingError
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from importlib import import_module
